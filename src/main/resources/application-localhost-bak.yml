@@ -1,0 +1,142 @@
+server:
+  port: 19030
+  tomcat:
+    uri-encoding: UTF-8
+    accept-count: 1
+#        max-connections: 2000
+#        max-threads: 3000
+
+
+
+spring:
+  application:
+    name: tyjw-inspectline
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  # jdbc
+  datasource:
+    url: jdbc:mysql://10.0.0.57:3306/uav_inspectline_1.0?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: tyjw2099!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+  # redis
+  redis:
+    host: 10.0.0.57
+    password: tyjw2099!
+    database: 5
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    #            password: tyjw2016!
+    port: 6379
+    timeout: 2000ms
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+#    kafka:
+#        bootstrap-servers: 10.0.0.57:9092
+#        producer:
+#          # 每次批量发送消息的数量
+#          batch-size: 16
+#          # 缓存容量
+#          buffer-memory: 33554432
+#          #设置大于0的值，则客户端会将发送失败的记录重新发送
+#          retries: 0
+#          # 指定消息key和消息体的编解码方式 UTF-8
+#          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#          value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+#        consumer:
+#          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#          value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+mybatis-plus:
+  # 实体类所做包
+  #  type-aliases-package: com.tyjw.yk.entity
+  # mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml
+  global-config:
+    db-config:
+      id-type: AUTO
+
+# 日志
+logging:
+  level:
+    com:
+      tyjw:
+        inspectline:
+          web:
+            controller: debug
+            telemetry: debug
+  path: /spring/log
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} === [%thread] === %-5level === %logger{50} === - %msg%n'
+
+# 常量
+go:
+  fastdfs:
+    path: ''
+    scene: mytest
+    showUrl: http://172.16.10.100:18081
+    showUrl.out: http://116.178.68.235:8005
+    url: http://116.178.68.235:8005/group1
+
+redis:
+  aicheck:
+    status:
+      hashkey: 'tid:'
+      key: tyjw_inspectline:aicheck_status
+  user:
+    login:
+      key: tyjw_inspectline:login_user:uid_
+wty:
+  data:
+    live:
+      telemetry: http://eapi.wogrid.com/data/live/telemetry
+      video: http://eapi.wogrid.com/data/live/video
+  history:
+    data: http://eapi.wogrid.com/data/history/telemetry
+    video: http://eapi.wogrid.com/data/history/video
+  plan:
+    list: http://eapi.wogrid.com/info/tasks
+  ai:
+    live:
+      video: http://10.0.0.94:8080/task/start?tid=%s&aid=3
+    history:
+      video: http://10.0.0.94:8080/task/video_url?tid=%s&aid=3
+  telemetry:
+    push:
+      host: track.wogrid.com
+      port: 56010
+  video:
+    type:
+      hd: 4
+      sd: 3
+
+# websocket
+websocket:
+  port: 19031
+
+report:
+  template:
+    path: F:/workspaces/油气管道巡线/pipeline-server/pdf/src/main/resources/templates
+    name: report.ftl
+  html:
+    path: F:/test/

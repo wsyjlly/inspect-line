@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #cccccc;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            /*获取元素*/
+            var myCanvas = document.querySelector('#myCanvas');
+            /*获取绘图工具*/
+            var ctx = myCanvas.getContext('2d');
+
+            /*
+            计算坐标系的原点坐标
+            计算坐标系x轴的最远坐标点以及对应三角形的坐标点
+            计算坐标系y轴的最远坐标点以及对应三角形的坐标点
+            */
+
+            // 1. 设置三角形大小以及间隙大小
+            var arrowSize = 10;
+            var space = 20;
+
+            // 2. 获取Canvas的width、height
+            var CanvasWidth = ctx.canvas.width;
+            var CanvasHeight = ctx.canvas.height;
+
+            // 3.计算坐标系的原点坐标(x0,y0)
+            var x0 = space;
+            var y0 = CanvasHeight - space;
+
+            // 4.计算坐标系y轴的最远坐标点(x1,y1)以及对应三角形的坐标点左边(x2,y2)\右边(x3,y3)
+            var x1 = space;
+            var y1 = space;
+
+            var x2 = Math.floor(x1 - arrowSize/2);
+            var y2 = Math.floor(y1 + arrowSize);
+
+            var x3 = Math.floor(x1 + arrowSize/2);
+            var y3 = Math.floor(y1 + arrowSize);
+
+            // 5.绘画y轴的线条
+            ctx.beginPath();
+            ctx.moveTo(x0,y0); // 原点
+            ctx.lineTo(x1,y1); // y轴最远点
+
+            // 6.绘画y轴三角形
+            ctx.lineTo(x2,y2); // 三角形左边点
+            ctx.lineTo(x3,y3); // 三角形右边点
+            ctx.lineTo(x1,y1); // 回到y轴最远点
+
+            // 7.填充以及描边y轴
+            ctx.fill();
+            ctx.stroke();
+
+            // 8.计算坐标系x轴的最远坐标点(x4,y4)以及对应三角形的坐标点上边(x5,y5)\下边(x6,y6)
+            var x4 = CanvasWidth - space;
+            var y4 = CanvasHeight - space;
+
+            var x5 = Math.floor(x4 - arrowSize);
+            var y5 = Math.floor(y4 - arrowSize/2);
+
+            var x6 = Math.floor(x4 - arrowSize);
+            var y6 = Math.floor(y4 + arrowSize/2);
+
+            // 9.绘制x轴线条
+            ctx.beginPath();
+            ctx.moveTo(x0,y0); // 原点
+            ctx.lineTo(x4,y4); // x轴最远点
+
+            // 10.绘制三角形
+            ctx.lineTo(x5,y5); // 三角形的上边
+            ctx.lineTo(x6,y6); // 三角形的下边
+            ctx.lineTo(x4,y4); // 回到x轴最远点
+
+            // 11.填充以及描边
+            ctx.fill();
+            ctx.stroke();
+
+
+        }
+    </script>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+</body>
+</html>

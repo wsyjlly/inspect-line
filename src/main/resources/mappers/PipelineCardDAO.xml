@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.PipelineCardDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.PipelineCardDO">
+        <id column="id" property="id" />
+        <result column="sys_pipe_no" property="sysPipeNo" />
+        <result column="real_pipe_no" property="realPipeNo" />
+        <result column="card_type" property="cardType" />
+        <result column="lng" property="lng" />
+        <result column="lat" property="lat" />
+        <result column="altitude" property="altitude" />
+        <result column="address" property="address" />
+        <result column="pipe_site_id" property="pipeSiteId" />
+        <result column="pipe_info_id" property="pipeInfoId" />
+        <result column="project_id" property="projectId" />
+        <result column="type" property="type" />
+        <result column="state" property="state" />
+        <result column="description" property="description" />
+        <result column="image" property="image" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, sys_pipe_no, real_pipe_no, card_type, lng, lat, altitude, address, pipe_site_id, pipe_info_id, project_id, type,state,description,image
+    </sql>
+
+</mapper>

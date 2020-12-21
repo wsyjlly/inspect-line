@@ -1,0 +1,197 @@
+*{margin: 0;padding: 0;box-sizing: border-box}
+html,body,#mapConatiner{width: 100%;height: 100%;}
+/* 媒体查询 */
+@media screen and (max-width: 600px) {
+    .toolbar,.set_btn,.set_box .box {
+        display: none !important;
+    } 
+}
+/* 设置 */
+.layui-form-switch {margin-top:0}
+.layui-form-switch{width:42px;} 
+.set_box {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    z-index: 9999;
+}
+.set_btn,.uav_modal {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.set_btn{
+    background: #fff url(../images/setbtn.png) no-repeat center center;
+}
+.modal1{
+    background: #fff url(../images/uavIcon2.png) no-repeat center center;
+}
+.modal2{
+    background: #fff url(../images/uavIcon1.png) no-repeat center center;
+}
+.set_box .box {
+    display: none;
+    width: 350px;
+    position: absolute;
+    right: 45px;
+    top: 0;
+    background: #fff;
+    padding: 20px 15px;
+}
+.set_box .box .row {
+    margin: 6px 0;
+}
+.set_box .box .row .title{
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+}
+.img_box {
+    width: 150px;
+    height: 120px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+}
+.img_box img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.danger_group {
+    padding-top: 10px;
+}
+.danger_group>div {
+    display: flex;
+    line-height: 30px;
+}
+.danger_group .tip {
+    color: #333;
+    margin-right: 10px;
+}
+.danger_group .demo-slider {
+    width: 60%;
+    margin-top: 13px;
+}
+.danger_group .input {
+    width: 45px;
+    height: 22px;
+    margin-left: 16px;
+    margin-top: 4px;
+    line-height: 22px;
+    text-align: center;
+    border:1px solid #999;
+    border-radius: 2px;
+    background-color: #ddd;
+}
+.checkbox_group>div {
+    display: flex;
+}
+
+.checkbox_group {
+    color: #666;
+}
+
+.checkbox_group .item {
+    width: 105px;
+}
+
+.map_grade {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+}
+.map_grade .box {
+    width: 130px;
+    margin: 5px auto;
+    color: #fff;
+    text-shadow: 0px 2px 1px #333;
+}
+
+.checkbox_group .icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: -5px;
+    margin-right: 4px;
+    vertical-align: sub;
+}
+.checkbox_group .result1 {
+    background: url(../images/result1.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .result2 {
+    background: url(../images/result2.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .result3 {
+    background: url(../images/result3.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .third {
+    background: url(../images/third.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .through {
+    background: url(../images/through.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .boxRoom {
+    background: url(../images/boxRoom.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .base {
+    background: url(../images/base.png) no-repeat;
+    background-size: cover;
+}
+.checkbox_group .redLine {
+    background: url(../images/redLine.png) no-repeat;
+    background-size: cover;
+}
+
+.toolbar {
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    background-color: #fff;
+    z-index: 9999;
+    border-radius: 3px;
+    padding: 0px 4px;
+}
+.toolbar > div{
+    width: 30px;
+    height: 30px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+.toolbar > div:last-child {
+    border:none
+}
+.point_btn {
+    background: url(../images/point.png) center no-repeat;
+}
+.line_btn {
+    background: url(../images/line.png) center no-repeat;
+    background-size: 65% 45%;
+}
+.circle_btn {
+    background: url(../images/circle.png) center no-repeat;
+}
+.polygon_btn {
+    background: url(../images/polygon.png) center no-repeat;
+    background-size: 70% 65%;
+}
+.ruler_btn{
+    background: url(../images/ruler.png) center no-repeat;
+    background-size: 70% 70%;
+}
+.delete_btn {
+    background: url(../images/delete.png) center no-repeat;
+    background-size: 65% 65%;
+}

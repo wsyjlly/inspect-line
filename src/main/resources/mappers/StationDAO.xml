@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.StationDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.StationDO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="lat" property="lat" />
+        <result column="lng" property="lng" />
+        <result column="height" property="height" />
+        <result column="angle" property="angle" />
+        <result column="azimuth1" property="azimuth1" />
+        <result column="azimuth2" property="azimuth2" />
+        <result column="pitch1" property="pitch1" />
+        <result column="pitch2" property="pitch2" />
+        <result column="state" property="state" />
+        <result column="project_id" property="projectId" />
+        <result column="type" property="type" />
+        <result column="address" property="address" />
+        <result column="image" property="image" />
+        <result column="radius" property="radius" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, lat, lng, height, angle, azimuth1, azimuth2, pitch1, pitch2, state, project_id,type,address,image,radius
+    </sql>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.HighConsequencesDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.HighConsequencesDO">
+        <id column="Id" property="Id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="number" property="number" />
+        <result column="address" property="address" />
+        <result column="steel_pipe" property="steelPipe" />
+        <result column="pipe_grade" property="pipeGrade" />
+        <result column="mpa" property="mpa" />
+        <result column="level" property="level" />
+        <result column="pipeline_points" property="pipelinePoints" />
+        <result column="color" property="color" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="state" property="state" />
+        <result column="distance" property="distance" />
+        <result column="buffer_points" property="bufferPoints" />
+        <result column="project_id" property="projectId" />
+        <result column="start_card_id" property="startCardId" />
+        <result column="end_card_id" property="endCardId" />
+        <result column="pipe_site_id" property="pipeSiteId" />
+        <result column="pipe_info_id" property="pipeInfoId" />
+        <result column="remark" property="remark" />
+        <result column="duty_person" property="dutyPerson" />
+        <result column="duty_mobile" property="dutyMobile" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Id, name, type, number, address, steel_pipe, pipe_grade, mpa, level, pipeline_points, color, description, create_time, modify_time, state, distance, buffer_points, project_id, start_card_id, end_card_id, pipe_site_id, pipe_info_id,remark,duty_person,duty_mobile
+    </sql>
+
+</mapper>

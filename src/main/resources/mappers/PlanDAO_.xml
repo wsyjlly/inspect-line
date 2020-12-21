@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.PlanDAO">
+    <select id="flightStatistics" parameterType="com.tyjw.inspectline.entity.dto.PlanDTO" resultType="map">
+        SELECT
+        COUNT(plan_id) AS totalCount,
+        IFNULL(SUM(flight_duration), 0) AS totalDuration,
+        IFNULL(SUM(flight_distance), 0) AS totalDistance,
+        IFNULL(MAX(flight_duration), 0) AS maxDuration,
+        IFNULL(MAX(flight_distance), 0) AS maxDistance
+        FROM
+        tyjw_plan AS plan
+        <where>
+            state=0
+            <if test="startTime!=null">
+                and DATE_FORMAT(start_time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+
+            </if>
+            <if test="endTime!=null">
+                and DATE_FORMAT(end_time,'%Y-%m-%d') &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+            </if>
+            <if test="planName!=null and planName!=''">
+                and plan_name LIKE CONCAT('%',#{planName},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="historyPageList" resultType="com.tyjw.inspectline.entity.vo.PlanVO">
+        SELECT
+        count( d.id ) AS dangerNum,
+        MAX(d.time_stamp) as lastDangerTime,
+        p.*
+        FROM
+        tyjw_plan p
+        LEFT JOIN danger_body d ON (d.task_id = p.plan_id and d.state= 0)
+        <where>
+            <if test="projectId !=null">
+                p.project_id = #{projectId}
+            </if>
+            <if test="planName !=null">
+                AND p.plan_name like CONCAT('%',#{planName},'%')
+            </if>
+            <if test="startTime !=null">
+                AND p.start_time  <![CDATA[>= ]]> #{startTime}
+            </if>
+            <if test="endTime">
+                AND p.end_time  <![CDATA[<= ]]> #{endTime}
+            </if>
+            and p.state = 0
+        </where>
+        GROUP BY
+        p.plan_id
+        ORDER BY
+        <if test="dangerSort !=null">
+            lastDangerTime DESC
+        </if>
+        <if test="dangerSort ==null">
+            p.plan_id DESC
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.ConstructionUnitDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.ConstructionUnitDO">
+        <id column="Id" property="Id" />
+        <result column="name" property="name" />
+        <result column="number" property="number" />
+        <result column="address" property="address" />
+        <result column="type" property="type" />
+        <result column="lng" property="lng" />
+        <result column="lat" property="lat" />
+        <result column="image" property="image" />
+        <result column="risk_grade" property="riskGrade" />
+        <result column="work_space" property="workSpace" />
+        <result column="method" property="method" />
+        <result column="schedule" property="schedule" />
+        <result column="take_steps" property="takeSteps" />
+        <result column="mileage" property="mileage" />
+        <result column="protect_steps" property="protectSteps" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="work_permission" property="workPermission" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="state" property="state" />
+        <result column="project_id" property="projectId" />
+        <result column="construction_type" property="constructionType" />
+        <result column="pipe_site_id" property="pipeSiteId" />
+        <result column="pipe_info_id" property="pipeInfoId" />
+        <result column="safe_area_image" property="safeAreaImage" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Id, name, number, address, type, lng, lat, image, risk_grade, work_space, method, schedule, take_steps, mileage, protect_steps, start_time, end_time, work_permission, description, create_time, modify_time, state, project_id, construction_type, pipe_site_id, pipe_info_id, safe_area_image
+    </sql>
+
+</mapper>

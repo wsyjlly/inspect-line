@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.SysDictDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.SysDict">
+        <id column="Id" property="Id"/>
+        <result column="name" property="name"/>
+        <result column="pid" property="pid"/>
+        <result column="type" property="type"/>
+        <result column="level" property="level"/>
+        <result column="image" property="image"/>
+        <result column="project_id" property="projectId"/>
+        <result column="table_name" property="tableName"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Id, name, pid, type, level, image,project_id,table_name
+    </sql>
+
+</mapper>

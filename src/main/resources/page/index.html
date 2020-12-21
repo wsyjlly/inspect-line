@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <title>地图</title>
+        <link rel="stylesheet" type="text/css" href="static/layui/css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="static/css/leaflet.css"/>
+        <link rel="stylesheet" href="static/css/index.css">
+        <script type="text/javascript" src="static/layui/layui.js"></script>
+        <script type="text/javascript" src="static/js/leaflet.js"></script>
+        <script type="text/javascript" src="./build/deps.js"></script>
+        <script src="./build/leaflet-include.js"></script>
+        <script src="./build/route.js"></script>
+        <script type="text/javascript" src="static/js/leaflet.rotatedMarker.js"></script>
+        <script src="static/js/LeafletMap.js"></script>
+	</head>
+	<body>
+        <!-- map容器 -->
+        <div id="mapConatiner"></div>
+        <!-- 工具 -->
+        <div class="toolbar">
+            <div class="point_btn" title="画点" onclick="drawPointBtn()"></div>
+            <div class="line_btn" title="画线" onclick="drawLineBtn()"></div>
+            <div class="circle_btn" title="画圆" onclick="drawCircleBtn()"></div>
+            <div class="polygon_btn" title="画多边形" onclick="drawPolygonBtn()"></div>
+            <div class="ruler_btn" title="测量距离" onclick="distance()"></div>
+            <div class="delete_btn" title="删除" onclick="deleteEvent()"></div>
+        </div>
+        <!-- 地图等级显示 -->
+        <div class="map_grade"><div class="box">当前地图等级：<span>11</span></div></div>
+        <!-- 右上角设置 -->
+        <div class="set_box layui-form">
+            <div class="set_btn"></div>
+            <div class="box">
+                <!-- <div class="row">
+                    <div class="title">
+                        <span>基础设施</span>
+                        <div>
+                            <input type="checkbox" lay-filter="boxSwitch" name="switch" lay-skin="switch">
+                        </div>
+                    </div>
+                    <hr class="layui-bg-gray">
+                </div> -->
+                <div class="row">
+                    <div class="title">
+                        <div class="line"><span>选择设施</span></div>
+                    </div>
+                    <div class="checkbox_group">
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="ckyd" name="ckyd" title="" lay-skin="primary"><span><span class="icon through"></span>穿越点</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="fs" name="fs" title="" lay-skin="primary"><span><span class="icon boxRoom"></span>阀室</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="bhz" name="bhz" title="" lay-skin="primary"><span><span class="icon base"></span>基站</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="dsfsg" name="dsfsg" title="" lay-skin="primary"><span><span class="icon third"></span>施工</span>
+                            </div>
+                            <div class="item" style="width: 115px;">
+                                <input type="checkbox" lay-filter="sthxq" name="sthxq" title="" lay-skin="primary"><span><span class="icon redLine"></span>生态红线区</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="layui-bg-gray">
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <div class="line"><span>高后果区</span></div>
+                    </div>
+                    <div class="checkbox_group">
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="ghgq3" name="ghgq3" title="" lay-skin="primary"><span><span class="icon result3"></span>三等级</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="ghgq2" name="ghgq2" title="" lay-skin="primary"><span><span class="icon result2"></span>二等级</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="ghgq1" name="ghgq1" title="" lay-skin="primary"><span><span class="icon result1"></span>一等级</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="layui-bg-gray">
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <div class="line"><span>桩号</span></div>
+                    </div>
+                    <div class="checkbox_group">
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="bzz" name="bzz" title="" lay-skin="primary"><span>标志桩</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="jmz" name="jmz" title="" lay-skin="primary"><span>加密桩</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="jsp" name="jsp" title="" lay-skin="primary"><span>警示牌</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="lcz" name="lcz" title="" lay-skin="primary"><span>里程桩</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="csz" name="csz" title="" lay-skin="primary"><span>测试桩</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="zjz" name="zjz" title="" lay-skin="primary"><span>转角桩</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="cybzz" name="cybzz" title="" lay-skin="primary"><span>穿越标志桩</span>
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" lay-filter="glbzz" name="glbzz" title="" lay-skin="primary"><span>光缆标志桩</span>
+                            </div>
+                        </div>
+                        <hr class="layui-bg-gray">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <span>险情位置</span>
+                    </div>
+                    <div class="danger_group" style="display: flex;">
+                        <div>
+                            <input type="checkbox" lay-filter="danger1" name="danger1" title="未指派" lay-skin="primary">
+                        </div>
+                        <div>
+                            <input type="checkbox" lay-filter="danger2" name="danger2" title="处理中" lay-skin="primary">
+                        </div>
+                        <div>
+                            <input type="checkbox" lay-filter="danger3" name="danger3" title="已完成" lay-skin="primary">
+                        </div>
+                    </div>
+                    <hr class="layui-bg-gray">
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <span>警戒线</span>
+                    </div>
+                    <div class="danger_group">
+                        <div style="margin-bottom: 15px;">
+                            <div><input type="checkbox" lay-filter="warning1" name="warning1" title="" checked lay-skin="primary"></div><span></span><div class="tip">一级</div><div id="warning1" class="demo-slider"></div><div class="input">0m</div>
+                        </div>
+                        <div>
+                            <div><input type="checkbox" lay-filter="warning2" name="warning2" title="" checked lay-skin="primary"></div><span></span><div class="tip">二级</div><div id="warning2" class="demo-slider"></div><div class="input">20m</div>
+                        </div>
+                    </div>
+                    <hr class="layui-bg-gray">
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <div class="line"><span>选择地图</span></div>
+                    </div>
+                    <div>
+                        <select name="city" lay-verify="test">
+                            <option value="">谷歌影像图</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="title">
+                        <div class="line"><span>选择正射影像</span></div>
+                    </div>
+                    <div>
+                        <select id="selectDom" name="domImage" lay-filter="domImage">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- 按钮 -->
+            <div class="uav_modal modal1" data-state="0"></div>
+        </div>
+        <script src="static/js/Connection_index.js"></script>
+        <script src="static/js/index.js"></script>
+        <script>
+
+            // var data = {
+            //     'id':1,
+            //     lat:32.1407343780354,
+            //     lng:119.30053710937501,
+            //     angle:0,
+            //     uavName:'无人机名称',
+            //     speed:123,
+            //     height:123,
+            //     pitch:40,
+            //     yaw:50
+            // }
+            // setTimeout(function(){
+            //     Connection.drawUav(data)
+            // },1000)
+            // setTimeout(function(){
+            //     Connection.drawUav(data)
+            //     Connection.mapRotate(Connection.map,-95.233342342)
+            // },6000)
+        </script>
+	</body>
+</html>

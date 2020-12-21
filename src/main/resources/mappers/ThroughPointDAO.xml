@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.ThroughPointDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.ThroughPoint">
+        <id column="Id" property="Id" />
+        <result column="name" property="name" />
+        <result column="address" property="address" />
+        <result column="image" property="image" />
+        <result column="mileage" property="mileage" />
+        <result column="type" property="type" />
+        <result column="throuth_type" property="throuthType" />
+        <result column="lng" property="lng" />
+        <result column="lat" property="lat" />
+        <result column="work_space" property="workSpace" />
+        <result column="pipeline_name" property="pipelineName" />
+        <result column="pipeline_location" property="pipelineLocation" />
+        <result column="steel_pipe" property="steelPipe" />
+        <result column="drive_pipe" property="drivePipe" />
+        <result column="other_protect" property="otherProtect" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="state" property="state" />
+        <result column="project_id" property="projectId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Id, name, address, image, mileage, type,throuth_type, lng, lat, work_space, pipeline_name, pipeline_location, steel_pipe, drive_pipe, other_protect, create_time, modify_time, state, project_id
+    </sql>
+
+</mapper>

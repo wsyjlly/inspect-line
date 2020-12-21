@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.UserDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.UserDO">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="phone" property="phone" />
+        <result column="password" property="password" />
+        <result column="register_source" property="registerSource" />
+        <result column="nick_name" property="nickName" />
+        <result column="last_ip" property="lastIp" />
+        <result column="last_time" property="lastTime" />
+        <result column="token" property="token" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="address" property="address" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="state" property="state" />
+        <result column="project_id" property="projectId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, phone, password, register_source, nick_name, last_ip, last_time, token, avatar_url, address, create_time, modify_time, state, project_id
+    </sql>
+
+    <select id="selectUserByRole" resultMap="BaseResultMap">
+        SELECT
+        tyjwuser.id,
+        tyjwuser.phone,
+        tyjwuser.user_name
+        FROM
+        sys_role_user AS roleuser
+        LEFT JOIN tyjw_user AS tyjwuser ON roleuser.sys_user_id = tyjwuser.id
+        WHERE
+        tyjwuser.state = 0
+        and tyjwuser.project_id=#{projectId}
+        AND roleuser.sys_role_id
+        <if test="list!=null and list.size>0">
+            IN
+            <foreach collection="list" item="roleId" separator="," open="(" close=")">
+                #{roleId}
+            </foreach>
+        </if>
+
+    </select>
+
+</mapper>

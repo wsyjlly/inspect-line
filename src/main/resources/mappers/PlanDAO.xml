@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.PlanDAO">
+  <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.PlanDO">
+    <id column="plan_id" jdbcType="INTEGER" property="planId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="uav_id" jdbcType="INTEGER" property="uavId" />
+    <result column="uav_name" jdbcType="VARCHAR" property="uavName" />
+    <result column="plan_name" jdbcType="VARCHAR" property="planName" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="flight_state" jdbcType="SMALLINT" property="flightState" />
+    <result column="state" jdbcType="SMALLINT" property="state" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="flight_duration" jdbcType="INTEGER" property="flightDuration" />
+    <result column="flight_distance" jdbcType="DOUBLE" property="flightDistance" />
+    <result column="start_longitude" jdbcType="DOUBLE" property="startLongitude" />
+    <result column="start_latitude" jdbcType="DOUBLE" property="startLatitude" />
+    <result column="end_longitude" jdbcType="DOUBLE" property="endLongitude" />
+    <result column="end_latitude" jdbcType="DOUBLE" property="endLatitude" />
+    <result column="task_number" jdbcType="VARCHAR" property="taskNumber" />
+    <result column="has_telemetry" jdbcType="TINYINT" property="hasTelemetry" />
+    <result column="has_video" jdbcType="TINYINT" property="hasVideo" />
+    <result column="has_hvideo" jdbcType="TINYINT" property="hasHvideo" />
+    <result column="pilots" jdbcType="VARCHAR" property="pilots" />
+    <result column="loadErget" jdbcType="VARCHAR" property="loaderget" />
+    <result column="seeType" jdbcType="VARCHAR" property="seetype" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
+    <result column="project_id" property="projectId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tyjw.inspectline.entity.model.PlanDO">
+    <result column="airline" jdbcType="LONGVARCHAR" property="airline" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    plan_id, user_id, uav_id, uav_name, plan_name, start_time, end_time, flight_state, 
+    state, create_time, flight_duration, flight_distance, start_longitude, start_latitude, 
+    end_longitude, end_latitude, task_number, has_telemetry, has_video, has_hvideo, pilots, 
+    loadErget, seeType, company, user_name, user_mobile,project_id
+  </sql>
+  <sql id="Blob_Column_List">
+    airline
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tyjw.inspectline.entity.model.PlanDOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tyjw_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tyjw.inspectline.entity.model.PlanDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tyjw_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tyjw_plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Integer">
+    delete from tyjw_plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tyjw.inspectline.entity.model.PlanDOExample">
+    delete from tyjw_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tyjw.inspectline.entity.model.PlanDO">
+    insert into tyjw_plan (plan_id, user_id, uav_id, 
+      uav_name, plan_name, start_time, 
+      end_time, flight_state, state, 
+      create_time, flight_duration, flight_distance, 
+      start_longitude, start_latitude, end_longitude, 
+      end_latitude, task_number, has_telemetry, 
+      has_video, has_hvideo, pilots, 
+      loadErget, seeType, company, 
+      user_name, user_mobile, airline
+      )
+    values (#{planId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{uavId,jdbcType=INTEGER}, 
+      #{uavName,jdbcType=VARCHAR}, #{planName,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{flightState,jdbcType=SMALLINT}, #{state,jdbcType=SMALLINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{flightDuration,jdbcType=INTEGER}, #{flightDistance,jdbcType=DOUBLE}, 
+      #{startLongitude,jdbcType=DOUBLE}, #{startLatitude,jdbcType=DOUBLE}, #{endLongitude,jdbcType=DOUBLE}, 
+      #{endLatitude,jdbcType=DOUBLE}, #{taskNumber,jdbcType=VARCHAR}, #{hasTelemetry,jdbcType=TINYINT}, 
+      #{hasVideo,jdbcType=TINYINT}, #{hasHvideo,jdbcType=TINYINT}, #{pilots,jdbcType=VARCHAR}, 
+      #{loaderget,jdbcType=VARCHAR}, #{seetype,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{airline,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyjw.inspectline.entity.model.PlanDO">
+    insert into tyjw_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="uavId != null">
+        uav_id,
+      </if>
+      <if test="uavName != null">
+        uav_name,
+      </if>
+      <if test="planName != null">
+        plan_name,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="flightState != null">
+        flight_state,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="flightDuration != null">
+        flight_duration,
+      </if>
+      <if test="flightDistance != null">
+        flight_distance,
+      </if>
+      <if test="startLongitude != null">
+        start_longitude,
+      </if>
+      <if test="startLatitude != null">
+        start_latitude,
+      </if>
+      <if test="endLongitude != null">
+        end_longitude,
+      </if>
+      <if test="endLatitude != null">
+        end_latitude,
+      </if>
+      <if test="taskNumber != null">
+        task_number,
+      </if>
+      <if test="hasTelemetry != null">
+        has_telemetry,
+      </if>
+      <if test="hasVideo != null">
+        has_video,
+      </if>
+      <if test="hasHvideo != null">
+        has_hvideo,
+      </if>
+      <if test="pilots != null">
+        pilots,
+      </if>
+      <if test="loaderget != null">
+        loadErget,
+      </if>
+      <if test="seetype != null">
+        seeType,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userMobile != null">
+        user_mobile,
+      </if>
+      <if test="airline != null">
+        airline,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="uavId != null">
+        #{uavId,jdbcType=INTEGER},
+      </if>
+      <if test="uavName != null">
+        #{uavName,jdbcType=VARCHAR},
+      </if>
+      <if test="planName != null">
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightState != null">
+        #{flightState,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightDuration != null">
+        #{flightDuration,jdbcType=INTEGER},
+      </if>
+      <if test="flightDistance != null">
+        #{flightDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="startLongitude != null">
+        #{startLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startLatitude != null">
+        #{startLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLongitude != null">
+        #{endLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLatitude != null">
+        #{endLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="taskNumber != null">
+        #{taskNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hasTelemetry != null">
+        #{hasTelemetry,jdbcType=TINYINT},
+      </if>
+      <if test="hasVideo != null">
+        #{hasVideo,jdbcType=TINYINT},
+      </if>
+      <if test="hasHvideo != null">
+        #{hasHvideo,jdbcType=TINYINT},
+      </if>
+      <if test="pilots != null">
+        #{pilots,jdbcType=VARCHAR},
+      </if>
+      <if test="loaderget != null">
+        #{loaderget,jdbcType=VARCHAR},
+      </if>
+      <if test="seetype != null">
+        #{seetype,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="airline != null">
+        #{airline,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tyjw.inspectline.entity.model.PlanDOExample" resultType="java.lang.Long">
+    select count(*) from tyjw_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tyjw_plan
+    <set>
+      <if test="record.planId != null">
+        plan_id = #{record.planId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uavId != null">
+        uav_id = #{record.uavId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uavName != null">
+        uav_name = #{record.uavName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planName != null">
+        plan_name = #{record.planName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flightState != null">
+        flight_state = #{record.flightState,jdbcType=SMALLINT},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flightDuration != null">
+        flight_duration = #{record.flightDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightDistance != null">
+        flight_distance = #{record.flightDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.startLongitude != null">
+        start_longitude = #{record.startLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.startLatitude != null">
+        start_latitude = #{record.startLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.endLongitude != null">
+        end_longitude = #{record.endLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.endLatitude != null">
+        end_latitude = #{record.endLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.taskNumber != null">
+        task_number = #{record.taskNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasTelemetry != null">
+        has_telemetry = #{record.hasTelemetry,jdbcType=TINYINT},
+      </if>
+      <if test="record.hasVideo != null">
+        has_video = #{record.hasVideo,jdbcType=TINYINT},
+      </if>
+      <if test="record.hasHvideo != null">
+        has_hvideo = #{record.hasHvideo,jdbcType=TINYINT},
+      </if>
+      <if test="record.pilots != null">
+        pilots = #{record.pilots,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loaderget != null">
+        loadErget = #{record.loaderget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seetype != null">
+        seeType = #{record.seetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMobile != null">
+        user_mobile = #{record.userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airline != null">
+        airline = #{record.airline,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tyjw_plan
+    set plan_id = #{record.planId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      uav_id = #{record.uavId,jdbcType=INTEGER},
+      uav_name = #{record.uavName,jdbcType=VARCHAR},
+      plan_name = #{record.planName,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      flight_state = #{record.flightState,jdbcType=SMALLINT},
+      state = #{record.state,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      flight_duration = #{record.flightDuration,jdbcType=INTEGER},
+      flight_distance = #{record.flightDistance,jdbcType=DOUBLE},
+      start_longitude = #{record.startLongitude,jdbcType=DOUBLE},
+      start_latitude = #{record.startLatitude,jdbcType=DOUBLE},
+      end_longitude = #{record.endLongitude,jdbcType=DOUBLE},
+      end_latitude = #{record.endLatitude,jdbcType=DOUBLE},
+      task_number = #{record.taskNumber,jdbcType=VARCHAR},
+      has_telemetry = #{record.hasTelemetry,jdbcType=TINYINT},
+      has_video = #{record.hasVideo,jdbcType=TINYINT},
+      has_hvideo = #{record.hasHvideo,jdbcType=TINYINT},
+      pilots = #{record.pilots,jdbcType=VARCHAR},
+      loadErget = #{record.loaderget,jdbcType=VARCHAR},
+      seeType = #{record.seetype,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_mobile = #{record.userMobile,jdbcType=VARCHAR},
+      airline = #{record.airline,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tyjw_plan
+    set plan_id = #{record.planId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      uav_id = #{record.uavId,jdbcType=INTEGER},
+      uav_name = #{record.uavName,jdbcType=VARCHAR},
+      plan_name = #{record.planName,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      flight_state = #{record.flightState,jdbcType=SMALLINT},
+      state = #{record.state,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      flight_duration = #{record.flightDuration,jdbcType=INTEGER},
+      flight_distance = #{record.flightDistance,jdbcType=DOUBLE},
+      start_longitude = #{record.startLongitude,jdbcType=DOUBLE},
+      start_latitude = #{record.startLatitude,jdbcType=DOUBLE},
+      end_longitude = #{record.endLongitude,jdbcType=DOUBLE},
+      end_latitude = #{record.endLatitude,jdbcType=DOUBLE},
+      task_number = #{record.taskNumber,jdbcType=VARCHAR},
+      has_telemetry = #{record.hasTelemetry,jdbcType=TINYINT},
+      has_video = #{record.hasVideo,jdbcType=TINYINT},
+      has_hvideo = #{record.hasHvideo,jdbcType=TINYINT},
+      pilots = #{record.pilots,jdbcType=VARCHAR},
+      loadErget = #{record.loaderget,jdbcType=VARCHAR},
+      seeType = #{record.seetype,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_mobile = #{record.userMobile,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyjw.inspectline.entity.model.PlanDO">
+    update tyjw_plan
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="uavId != null">
+        uav_id = #{uavId,jdbcType=INTEGER},
+      </if>
+      <if test="uavName != null">
+        uav_name = #{uavName,jdbcType=VARCHAR},
+      </if>
+      <if test="planName != null">
+        plan_name = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightState != null">
+        flight_state = #{flightState,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightDuration != null">
+        flight_duration = #{flightDuration,jdbcType=INTEGER},
+      </if>
+      <if test="flightDistance != null">
+        flight_distance = #{flightDistance,jdbcType=DOUBLE},
+      </if>
+      <if test="startLongitude != null">
+        start_longitude = #{startLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startLatitude != null">
+        start_latitude = #{startLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLongitude != null">
+        end_longitude = #{endLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="endLatitude != null">
+        end_latitude = #{endLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="taskNumber != null">
+        task_number = #{taskNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hasTelemetry != null">
+        has_telemetry = #{hasTelemetry,jdbcType=TINYINT},
+      </if>
+      <if test="hasVideo != null">
+        has_video = #{hasVideo,jdbcType=TINYINT},
+      </if>
+      <if test="hasHvideo != null">
+        has_hvideo = #{hasHvideo,jdbcType=TINYINT},
+      </if>
+      <if test="pilots != null">
+        pilots = #{pilots,jdbcType=VARCHAR},
+      </if>
+      <if test="loaderget != null">
+        loadErget = #{loaderget,jdbcType=VARCHAR},
+      </if>
+      <if test="seetype != null">
+        seeType = #{seetype,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="airline != null">
+        airline = #{airline,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tyjw.inspectline.entity.model.PlanDO">
+    update tyjw_plan
+    set user_id = #{userId,jdbcType=INTEGER},
+      uav_id = #{uavId,jdbcType=INTEGER},
+      uav_name = #{uavName,jdbcType=VARCHAR},
+      plan_name = #{planName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      flight_state = #{flightState,jdbcType=SMALLINT},
+      state = #{state,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      flight_duration = #{flightDuration,jdbcType=INTEGER},
+      flight_distance = #{flightDistance,jdbcType=DOUBLE},
+      start_longitude = #{startLongitude,jdbcType=DOUBLE},
+      start_latitude = #{startLatitude,jdbcType=DOUBLE},
+      end_longitude = #{endLongitude,jdbcType=DOUBLE},
+      end_latitude = #{endLatitude,jdbcType=DOUBLE},
+      task_number = #{taskNumber,jdbcType=VARCHAR},
+      has_telemetry = #{hasTelemetry,jdbcType=TINYINT},
+      has_video = #{hasVideo,jdbcType=TINYINT},
+      has_hvideo = #{hasHvideo,jdbcType=TINYINT},
+      pilots = #{pilots,jdbcType=VARCHAR},
+      loadErget = #{loaderget,jdbcType=VARCHAR},
+      seeType = #{seetype,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      airline = #{airline,jdbcType=LONGVARCHAR}
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyjw.inspectline.entity.model.PlanDO">
+    update tyjw_plan
+    set user_id = #{userId,jdbcType=INTEGER},
+      uav_id = #{uavId,jdbcType=INTEGER},
+      uav_name = #{uavName,jdbcType=VARCHAR},
+      plan_name = #{planName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      flight_state = #{flightState,jdbcType=SMALLINT},
+      state = #{state,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      flight_duration = #{flightDuration,jdbcType=INTEGER},
+      flight_distance = #{flightDistance,jdbcType=DOUBLE},
+      start_longitude = #{startLongitude,jdbcType=DOUBLE},
+      start_latitude = #{startLatitude,jdbcType=DOUBLE},
+      end_longitude = #{endLongitude,jdbcType=DOUBLE},
+      end_latitude = #{endLatitude,jdbcType=DOUBLE},
+      task_number = #{taskNumber,jdbcType=VARCHAR},
+      has_telemetry = #{hasTelemetry,jdbcType=TINYINT},
+      has_video = #{hasVideo,jdbcType=TINYINT},
+      has_hvideo = #{hasHvideo,jdbcType=TINYINT},
+      pilots = #{pilots,jdbcType=VARCHAR},
+      loadErget = #{loaderget,jdbcType=VARCHAR},
+      seeType = #{seetype,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR}
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+</mapper>

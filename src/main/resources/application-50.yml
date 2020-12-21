@@ -1,0 +1,115 @@
+server:
+    port: 19030
+    tomcat:
+        uri-encoding: UTF-8
+        accept-count: 1000
+        max-connections: 2000
+        max-threads: 3000
+
+spring:
+    application:
+        name: tyjw-inspectline
+    main:
+        allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+    # jdbc
+    datasource:
+        url: jdbc:mysql://192.168.2.51:3306/tyjw_inspectline?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+        username: adminTyjw
+        password: tyjw2016!
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+          initial-size: 5
+          min-idle: 5
+          max-active: 20
+          maxWait: 60000
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+    # redis
+    redis:
+            host: 192.168.2.51
+            jedis:
+                pool:
+                    max-active: 8
+                    max-idle: 8
+                    max-wait: -1ms
+                    min-idle: 0
+            password: tyjw2016!
+            port: 6379
+            timeout: 2000ms
+    jackson:
+        serialization:
+            write-dates-as-timestamps: true
+        time-zone: GMT+8
+    servlet:
+        multipart:
+            max-file-size: -1
+            max-request-size: -1
+
+mybatis-plus:
+  # 实体类所做包
+#  type-aliases-package: com.tyjw.yk.entity
+  # mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml
+  global-config:
+    db-config:
+      id-type: AUTO
+
+# 日志
+logging:
+    file: /home/server/tyjw-inspectline/logs/log.log
+    level:
+        com:
+            tyjw: info
+            com.tyjw.inspectline.dao: debug
+    path: /spring/log
+    pattern:
+        console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n'
+        file: '%d{yyyy-MM-dd HH:mm:ss} === [%thread] === %-5level === %logger{50} === - %msg%n'
+
+# 常量
+go:
+    fastdfs:
+        path: ''
+        scene: nj_pipeline
+        showUrl: http://172.16.10.100:18081
+        showUrl.out: http://116.178.68.235:8005
+        url: http://116.178.68.235:8005/group1
+
+redis:
+    aicheck:
+        status:
+            hashkey: 'tid:'
+            key: tyjw_inspectline:aicheck_status
+    user:
+        login:
+            key: tyjw_inspectline:login_user:uid_
+wty:
+    Access:
+        Key:
+            ID: f1992b9e6a444d2199c5975551ed56e0
+            Secret: cS8532tL1dLj4A70P92n639
+    data:
+        live:
+            telemetry: http://eapi.wogrid.com/data/live/telemetry
+            video: http://eapi.wogrid.com/data/live/video
+    history:
+        data: http://eapi.wogrid.com/data/history/telemetry
+        video: http://eapi.wogrid.com/data/history/video
+    plan:
+        list: http://eapi.wogrid.com/info/tasks
+    projectid: 47
+    telemetry:
+        push:
+            host: track.wogrid.com
+            port: 56010
+    video:
+        type:
+            hd: 4
+            sd: 3
+
+# websocket
+websocket:
+            port: 19031
+
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.ValveRoomDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.ValveRoomDO">
+        <id column="Id" property="Id" />
+        <result column="name" property="name" />
+        <result column="number" property="number" />
+        <result column="address" property="address" />
+        <result column="mileage" property="mileage" />
+        <result column="type" property="type" />
+        <result column="valve_type" property="valveType" />
+        <result column="lng" property="lng" />
+        <result column="lat" property="lat" />
+        <result column="image" property="image" />
+        <result column="work_space" property="workSpace" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="state" property="state" />
+        <result column="project_id" property="projectId" />
+        <result column="duty_person" property="dutyPerson" />
+        <result column="duty_mobile" property="dutyMobile" />
+        <result column="pipe_site_id" property="pipeSiteId" />
+        <result column="pipe_info_id" property="pipeInfoId" />
+        <result column="org_code" property="orgCode" />
+        <result column="org_name" property="orgName" />
+        <result column="fenceding" property="fenceding" />
+        <result column="description" property="description" />
+        <result column="designunit" property="designunit" />
+        <result column="assembly_company" property="assemblyCompany" />
+        <result column="inspecting_company" property="inspectingCompany" />
+        <result column="testing_company" property="testingCompany" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Id, name, number, address, mileage, type, valve_type, lng, lat, image, work_space, create_time, modify_time, state, project_id, duty_person,duty_mobile, pipe_site_id, pipe_info_id, org_code, org_name, fenceding, description, designunit, assembly_company, inspecting_company, testing_company
+    </sql>
+
+</mapper>

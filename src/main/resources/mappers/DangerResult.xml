@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.DangerResultDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.DangerResult">
+        <id column="id" property="id" />
+        <result column="body_id" property="bodyId" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="formulation" property="formulation" />
+        <result column="scene_imgs" property="sceneImgs" />
+        <result column="scene_video" property="sceneVideo" />
+        <result column="time_stamp" property="timeStamp" />
+        <result column="remarks" property="remarks" />
+        <result column="state" property="state" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, body_id, user_id, user_name, formulation, scene_imgs, scene_video, time_stamp, remarks, state,status,create_time
+    </sql>
+
+</mapper>

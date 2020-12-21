@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyjw.inspectline.dao.DangerBodyDAO">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tyjw.inspectline.entity.model.DangerBody">
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <!--<result column="project_name" property="projectName"/>-->
+        <result column="task_id" property="taskId"/>
+        <!--<result column="task_name" property="taskName"/>-->
+        <result column="target_id" property="targetId"/>
+        <!--<result column="target_name" property="targetName"/>-->
+        <result column="credibility" property="credibility"/>
+        <result column="distance_x" property="distanceX"/>
+        <result column="distance_y" property="distanceY"/>
+        <result column="lng" property="lng"/>
+        <result column="lat" property="lat"/>
+        <result column="height" property="height"/>
+        <result column="now_image_url" property="nowImageUrl"/>
+        <result column="his_image_url" property="hisImageUrl"/>
+        <result column="time_stamp" property="timeStamp"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="remarks" property="remarks"/>
+        <result column="state" property="state"/>
+        <result column="task_name" property="taskName"/>
+    </resultMap>
+
+    <resultMap id="ResultDangerBodyVOMap" type="com.tyjw.inspectline.entity.vo.DangerBodyVO" extends="BaseResultMap">
+        <result column="target_name" property="targetName"/>
+        <result column="target_icon" property="targetIcon"/>
+        <result column="level_icon" property="levelIcon"/>
+        <result column="level_icon_click" property="levelIconClick"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_id, project_name, task_id, target_id, credibility, distance_x, distance_y, lng, lat, height, now_image_url, his_image_url, time_stamp, type, status, remarks, state,task_name
+    </sql>
+
+    <!--查询每个计划的险情个数-->
+    <select id="selectTaskDangerNumber" resultType="map">
+        SELECT
+            task_id as taskId,
+            COUNT( id ) as count
+        FROM
+            danger_body
+        WHERE
+            project_id = #{projectId}
+            AND state = 0
+        GROUP BY
+            task_id
+    </select>
+
+    <!--根据险情处理状态统计-->
+    <select id="statusStatistics" resultType="com.tyjw.inspectline.entity.pojo.DangerPojo">
+        SELECT
+        IFNULL(`status`,0) as status,
+        count( id ) as count
+        FROM
+        danger_body
+        <where>
+            <if test="projectId !=null">
+                project_id = #{projectId}
+            </if>
+            <if test="taskId !=null">
+                AND task_id=#{taskId}
+            </if>
+            <if test="targetId !=null">
+                AND target_id=#{targetId}
+            </if>
+            <if test="startTime !=null">
+                AND time_stamp  <![CDATA[>= ]]> #{startTime}
+            </if>
+            <if test="endTime">
+                AND time_stamp  <![CDATA[<= ]]> #{endTime}
+            </if>
+            and state = 0
+        </where>
+        GROUP BY status
+    </select>
+
+    <!--根据险情类型统计-->
+    <select id="typeStatistics" resultMap="ResultDangerBodyVOMap">
+        SELECT
+        target_id,
+        target_name,
+        count( id ) AS count
+        FROM
+        danger_body
+        <where>
+            <if test="projectId !=null">
+                project_id = #{projectId}
+            </if>
+            <if test="taskId !=null">
+                AND task_id=#{taskId}
+            </if>
+            <if test="targetId !=null">
+                AND target_id=#{targetId}
+            </if>
+            <if test="startTime !=null">
+                AND time_stamp  <![CDATA[>= ]]> #{startTime}
+            </if>
+            <if test="endTime">
+                AND time_stamp  <![CDATA[<= ]]> #{endTime}
+            </if>
+            and state = 0
+        </where>
+        GROUP BY target_id,target_name
+    </select>
+
+
+    <!--根据险情类型统计-->
+    <select id="selectDangerNumberByTask" resultMap="ResultDangerBodyVOMap">
+        SELECT
+        task_id,
+        count( id ) AS count
+        FROM
+        danger_body
+        <where>
+            <if test="projectId !=null">
+                project_id = #{projectId}
+            </if>
+            and state = 0
+        </where>
+        GROUP BY task_id
+    </select>
+
+    <select id="pageList" resultMap="ResultDangerBodyVOMap">
+        SELECT
+        dbody.*,
+        dt.target_icon,
+        dt.target_name,
+        dt.level,
+        dt.level_icon,
+        dt.level_icon_click
+        FROM
+        danger_body dbody
+        LEFT JOIN danger_target dt ON dbody.target_id = dt.target_id
+        <where>
+            <if test="projectId !=null">
+                dbody.project_id = #{projectId}
+            </if>
+            <if test="taskId !=null">
+                AND dbody.task_id= #{taskId}
+            </if>
+            <if test="targetId !=null">
+                AND dbody.target_id= #{targetId}
+            </if>
+            <if test="type !=null">
+                AND dbody.type = #{type}
+            </if>
+            <if test="status !=null">
+                AND dbody.status = #{status}
+            </if>
+            <if test="moreStatus !=null and moreStatus.size > 0">
+               AND  dbody.status in 
+                <foreach collection="moreStatus" item="status" open="(" separator=","  close=")">
+                  #{status}
+                </foreach>
+            </if>
+        </where>
+        and dbody.state = 0
+        ORDER BY
+        dbody.id desc
+    </select>
+
+    <select id="pageListPatrol" resultMap="ResultDangerBodyVOMap">
+        SELECT
+        dbody.*,
+        dt.target_icon,
+        dt.target_name,
+        dt.level,
+        dt.level_icon,
+        dt.level_icon_click
+        FROM
+        danger_body dbody
+        LEFT JOIN danger_target dt ON dbody.target_id = dt.target_id
+        LEFT JOIN danger_result dresult on dbody.id=dresult.body_id
+        <where>
+            <if test="projectId !=null">
+                dbody.project_id = #{projectId}
+            </if>
+            <if test="taskId !=null">
+                AND dbody.task_id= #{taskId}
+            </if>
+            <if test="targetId !=null">
+                AND dbody.target_id= #{targetId}
+            </if>
+            <if test="type !=null">
+                AND dbody.type = #{type}
+            </if>
+            <if test="status !=null">
+                AND dbody.status = #{status}
+            </if>
+            <if test="moreStatus !=null and moreStatus.size > 0">
+                AND  dbody.status in
+                <foreach collection="moreStatus" item="status" open="(" separator=","  close=")">
+                    #{status}
+                </foreach>
+            </if>
+            <if test="resultUid !=null">
+                AND dresult.user_id=#{resultUid}
+            </if>
+        </where>
+        and dbody.state = 0
+        ORDER BY
+        dbody.id desc
+    </select>
+
+</mapper>
